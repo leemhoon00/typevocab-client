@@ -1,3 +1,13 @@
+<script>
+  import { isLoggedIn } from "../store.js";
+
+  let isLoggedInValue;
+
+  isLoggedIn.subscribe((value) => {
+    isLoggedInValue = value;
+  });
+</script>
+
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#/">Home</a>
@@ -8,7 +18,7 @@
           <a class="nav-link" aria-current="page" href="#">단어장</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">문제출제</a>
+          <a class="nav-link" aria-current="page" href="#">문제</a>
         </li>
       </ul>
       <div class="dropstart" id="profile">
@@ -21,9 +31,11 @@
           IMG
         </button>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="#">Action</a></li>
-          <li><a class="dropdown-item" href="#">Action two</a></li>
-          <li><a class="dropdown-item" href="#">Action three</a></li>
+          {#if !isLoggedInValue}
+            <li><a class="dropdown-item" href="#/login">로그인</a></li>
+          {:else}
+            <li><a class="dropdown-item" href="#">Action two</a></li>
+          {/if}
         </ul>
       </div>
     </div>
