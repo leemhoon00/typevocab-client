@@ -1,7 +1,7 @@
 import Home from "./pages/home/Home.svelte";
-import Login from "./pages/login/Login.svelte";
+import Info from "./pages/info/Info.svelte";
 
 export default {
   "/": Home,
-  "/login": Login,
+  "/info": Info,
 };

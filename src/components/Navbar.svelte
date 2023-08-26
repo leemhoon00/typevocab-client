@@ -1,5 +1,5 @@
 <script>
-  import { isLoggedIn } from "../store.js";
+  import { isLoggedIn } from "@store/store.js";
 
   let isLoggedInValue;
 
@@ -8,7 +8,7 @@
   });
 </script>
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-sm bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#/">Home</a>
 
@@ -31,11 +31,8 @@
           IMG
         </button>
         <ul class="dropdown-menu">
-          {#if !isLoggedInValue}
-            <li><a class="dropdown-item" href="#/login">로그인</a></li>
-          {:else}
-            <li><a class="dropdown-item" href="#">Action two</a></li>
-          {/if}
+          <li><a class="dropdown-item" href="#/info">내정보</a></li>
+          <li><a class="dropdown-item" href="#">로그아웃</a></li>
         </ul>
       </div>
     </div>
