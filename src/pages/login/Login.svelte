@@ -1,5 +1,5 @@
 <script>
-  import { KAKAO_CLIENT_KEY, BACKEND_URL } from "../../store";
+  import { KAKAO_CLIENT_KEY, BACKEND_URL } from "@src/store";
 </script>
 
 <div>

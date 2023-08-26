@@ -1,11 +1,5 @@
 <script>
-  import { isLoggedIn } from "@store/store.js";
-
-  let isLoggedInValue;
-
-  isLoggedIn.subscribe((value) => {
-    isLoggedInValue = value;
-  });
+  import { BACKEND_URL } from "@src/store.js";
 </script>
 
 <nav class="navbar navbar-expand-sm bg-body-tertiary">
@@ -32,7 +26,11 @@
         </button>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="#/info">내정보</a></li>
-          <li><a class="dropdown-item" href="#">로그아웃</a></li>
+          <li>
+            <a class="dropdown-item" href="{$BACKEND_URL}/auth/logout"
+              >로그아웃</a
+            >
+          </li>
         </ul>
       </div>
     </div>
