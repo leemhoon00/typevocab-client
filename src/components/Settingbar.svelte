@@ -17,6 +17,7 @@
       aria-label="Close"
     ></button>
   </div>
+
   <div class="offcanvas-body">
     <ul class="list-group list-group-flush">
       <a href="#/settings">
@@ -47,6 +48,7 @@
   .list-group-item {
     border-radius: 1rem;
     border: none;
+    cursor: pointer;
   }
 
   a {

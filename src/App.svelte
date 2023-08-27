@@ -1,6 +1,6 @@
 <script>
   import Router from "svelte-spa-router";
-  import routes from "./routes.js";
+  import { rootRouter } from "./routes.js";
   import { isLoggedIn } from "@src/store.js";
   import Login from "./pages/login/Login.svelte";
   import { getCookie } from "@utils/cookieModule";
@@ -17,7 +17,7 @@
 
 {#if $isLoggedIn}
   <Navbar />
-  <Router {routes} />
+  <Router routes={rootRouter} />
 {:else}
   <Login />
 {/if}

@@ -1,20 +1,18 @@
 <script>
-  import Left from "./Left.svelte";
+  import Router from "svelte-spa-router";
+  import Sidebar from "./Sidebar.svelte";
+  import { settingsRouter } from "@src/routes.js";
 </script>
 
 <div class="container">
   <div class="row">
-    <div class="col-4">
+    <div class="col-3">
       <!-- 첫 번째 세로 영역 -->
-      <Left />
+      <Sidebar />
     </div>
-    <div class="col-4">
+    <div class="col">
       <!-- 두 번째 세로 영역 -->
-      <p>영역 2</p>
-    </div>
-    <div class="col-4">
-      <!-- 세 번째 세로 영역 -->
-      <p>영역 3</p>
+      <Router routes={settingsRouter} />
     </div>
   </div>
 </div>
