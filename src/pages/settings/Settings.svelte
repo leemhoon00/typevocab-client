@@ -1,7 +1,13 @@
 <script>
   import Router from "svelte-spa-router";
   import Sidebar from "./Sidebar.svelte";
-  import { settingsRouter } from "@src/routes.js";
+
+  import Profile from "./options/Profile.svelte";
+  const prefix = "/settings";
+
+  const routes = {
+    "/profile": Profile,
+  };
 </script>
 
 <div class="container">
@@ -12,7 +18,7 @@
     </div>
     <div class="col">
       <!-- 두 번째 세로 영역 -->
-      <Router routes={settingsRouter} />
+      <Router {routes} {prefix} />
     </div>
   </div>
 </div>
