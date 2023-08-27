@@ -7,7 +7,7 @@
   </a>
   <a href="#/">
     <li class="list-group-item list-group-item-action">
-      <span>Logout</span>
+      <span>Temp</span>
     </li>
   </a>
 </ul>
