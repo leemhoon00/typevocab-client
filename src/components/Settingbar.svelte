@@ -1,5 +1,5 @@
 <script>
-  import { BACKEND_URL } from "@src/store.js";
+  import { BACKEND_URL } from "@src/config.js";
 </script>
 
 <div
@@ -20,13 +20,13 @@
 
   <div class="offcanvas-body">
     <ul class="list-group list-group-flush">
-      <a href="#/settings">
+      <a href="#/settings/profile">
         <li class="list-group-item list-group-item-action">
           <span><img src="./images/setting.svg" width="20" alt="" /></span>
           <span>Settings</span>
         </li>
       </a>
-      <a href="{$BACKEND_URL}/auth/logout">
+      <a href="{BACKEND_URL}/auth/logout">
         <li class="list-group-item list-group-item-action">
           <span>Logout</span>
         </li>
