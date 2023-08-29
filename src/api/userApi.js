@@ -5,7 +5,6 @@ export const getUser = async () => {
     credentials: "include",
   });
   const data = await res.json();
-  console.log(data);
   return data;
 };
 
@@ -20,4 +19,12 @@ export const updateUser = async (user) => {
   });
   const data = await res.json();
   return data;
+};
+
+export const deleteUser = async () => {
+  const res = await fetch(`${BACKEND_URL}/user`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  return await res.json();
 };

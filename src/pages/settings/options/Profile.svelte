@@ -1,6 +1,8 @@
 <script>
   import { onMount } from "svelte";
-  import { getUser, updateUser } from "@api/userApi";
+  import { user } from "@src/store.js";
+  import { getUser, updateUser, deleteUser } from "@api/userApi";
+  import { replace } from "svelte-spa-router";
 
   let name = "";
   let email = "";
@@ -24,10 +26,30 @@
     };
 
     const result = await updateUser(updatedUser);
+
+    if (result) {
+      user.update((user) => {
+        return {
+          ...user,
+          ...updatedUser,
+        };
+      });
+    }
+  };
+
+  const deleteButtonEvent = async () => {
+    const result = await deleteUser();
+
+    if (result) {
+      await replace("/");
+      location.reload();
+    } else {
+      alert("Fail");
+    }
   };
 </script>
 
-<div>
+<div class="col-6">
   <h3>Profile</h3>
   <form>
     <label for="inputName" class="form-label">Name</label>
@@ -67,15 +89,29 @@
       class="btn btn-success">Update profile</button
     >
   </form>
+
+  <h3>Danger</h3>
+  <button class="btn btn-danger" on:click={deleteButtonEvent}
+    >Delete Account</button
+  >
+</div>
+
+<div class="col-3 right">
+  <div>
+    <input type="file" />
+  </div>
 </div>
 
 <style>
-  h3 {
-    border-bottom: 1px solid #ccc;
+  .form-control {
     margin-bottom: 1rem;
   }
 
-  .form-control {
-    margin-bottom: 1rem;
+  form {
+    margin-bottom: 3rem;
+  }
+
+  .right {
+    margin-top: 2rem;
   }
 </style>

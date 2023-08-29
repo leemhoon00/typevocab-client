@@ -1,13 +1,14 @@
 <ul class="list-group list-group-flush">
   <a href="#/settings/profile">
     <li class="list-group-item list-group-item-action">
-      <span><img src="./images/setting.svg" width="20" alt="" /></span>
+      <span><img src="./images/person.svg" width="20" alt="" /></span>
       <span>Profile</span>
     </li>
   </a>
-  <a href="#/">
+  <a href="#/settings/account">
     <li class="list-group-item list-group-item-action">
-      <span>Temp</span>
+      <img src="./images/setting.svg" width="20" alt="" />
+      <span>Account</span>
     </li>
   </a>
 </ul>
@@ -17,5 +18,9 @@
     border-radius: 1rem;
     border: none;
     cursor: pointer;
+  }
+
+  li img {
+    padding-bottom: 0.2rem;
   }
 </style>

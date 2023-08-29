@@ -13,10 +13,7 @@
       <!-- 첫 번째 세로 영역 -->
       <Sidebar />
     </div>
-    <div class="col-6">
-      <!-- 두 번째 세로 영역 -->
-      <Router {routes} {prefix} />
-    </div>
+    <Router {routes} {prefix} />
   </div>
 </div>
 

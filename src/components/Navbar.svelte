@@ -1,5 +1,19 @@
 <script>
+  import { onMount } from "svelte";
+  import { user } from "@src/store";
+  import { getUser } from "@api/userApi";
+
   import Settingbar from "./Settingbar.svelte";
+
+  onMount(async () => {
+    const newUser = await getUser();
+    user.update((user) => {
+      return {
+        ...user,
+        ...newUser,
+      };
+    });
+  });
 </script>
 
 <nav class="navbar navbar-expand-sm bg-body-tertiary">
