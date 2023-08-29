@@ -13,6 +13,10 @@
         ...newUser,
       };
     });
+    const imgResponse = await fetch(newUser.image);
+    const imgBlob = await imgResponse.blob();
+    const imgUrl = URL.createObjectURL(imgBlob);
+    document.getElementById("settingButton").src = imgUrl;
   });
 </script>
 
@@ -37,14 +41,15 @@
           <a class="nav-link" aria-current="page" href="#">문제</a>
         </li>
       </ul>
-      <button
+      <img
         class="btn"
         type="button"
         data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasRight"
         aria-controls="offcanvasRight"
-        id="settingButton">IMG</button
-      >
+        id="settingButton"
+        alt=""
+      />
     </div>
   </div>
 </nav>
@@ -54,6 +59,10 @@
 <style>
   #settingButton {
     margin-left: auto;
+    border-radius: 50%;
+    background-color: pink;
+    width: 2rem;
+    height: 2rem;
   }
 
   .navbar {
