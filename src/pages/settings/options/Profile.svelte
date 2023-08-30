@@ -41,7 +41,7 @@
   const deleteButtonEvent = async () => {
     const result = await deleteUser();
 
-    if (result) {
+    if (result.success === true) {
       await replace("/");
       location.reload();
     } else {

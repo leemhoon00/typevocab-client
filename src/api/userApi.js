@@ -35,3 +35,14 @@ export const getImageUrl = async (url) => {
   const imgBlob = await imgResponse.blob();
   return URL.createObjectURL(imgBlob);
 };
+
+export const uploadImage = async (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  const res = await fetch(`${BACKEND_URL}/user/image`, {
+    method: "POST",
+    credentials: "include",
+    body: formData,
+  });
+  return await res.json();
+};
