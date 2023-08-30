@@ -60,9 +60,10 @@
   #settingButton {
     margin-left: auto;
     border-radius: 50%;
-    background-color: pink;
     width: 2rem;
     height: 2rem;
+    padding: 0;
+    border-style: black;
   }
 
   .navbar {
