@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { user } from "@src/store";
-  import { getUser } from "@api/userApi";
+  import { getUser, getImageUrl } from "@api/userApi";
 
   import Settingbar from "./Settingbar.svelte";
 
@@ -13,10 +13,9 @@
         ...newUser,
       };
     });
-    const imgResponse = await fetch(newUser.image);
-    const imgBlob = await imgResponse.blob();
-    const imgUrl = URL.createObjectURL(imgBlob);
-    document.getElementById("settingButton").src = imgUrl;
+
+    const imageUrl = await getImageUrl(newUser.image);
+    document.getElementById("settingButton").src = imageUrl;
   });
 </script>
 
@@ -63,7 +62,6 @@
     width: 2rem;
     height: 2rem;
     padding: 0;
-    border-style: black;
   }
 
   .navbar {

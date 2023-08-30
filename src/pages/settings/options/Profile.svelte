@@ -3,6 +3,7 @@
   import { user } from "@src/store.js";
   import { getUser, updateUser, deleteUser } from "@api/userApi";
   import { replace } from "svelte-spa-router";
+  import ImageSelect from "./sub-components/Image-select.svelte";
 
   let name = "";
   let email = "";
@@ -96,11 +97,7 @@
   >
 </div>
 
-<div class="col-3 right">
-  <div>
-    <input type="file" />
-  </div>
-</div>
+<ImageSelect />
 
 <style>
   .form-control {
@@ -109,9 +106,5 @@
 
   form {
     margin-bottom: 3rem;
-  }
-
-  .right {
-    margin-top: 2rem;
   }
 </style>

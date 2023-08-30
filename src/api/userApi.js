@@ -28,3 +28,10 @@ export const deleteUser = async () => {
   });
   return await res.json();
 };
+
+// S3에서 이미지 가져오기
+export const getImageUrl = async (url) => {
+  const imgResponse = await fetch(url);
+  const imgBlob = await imgResponse.blob();
+  return URL.createObjectURL(imgBlob);
+};
