@@ -22,6 +22,11 @@
     const file = e.currentTarget.files[0];
     if (file) {
       const response = await uploadImage(file);
+      if (!response.success) {
+        alert("Fail to upload image");
+      } else {
+        location.reload();
+      }
     }
   }
 </script>
