@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { user } from "@src/store";
-  import { getImageUrl, uploadImage } from "@api/userApi";
+  import { getImageUrl, uploadImage, deleteImage } from "@api/userApi";
 
   onMount(async () => {
     user.subscribe(async (user) => {
@@ -14,8 +14,13 @@
     document.getElementById("imageInput").click();
   }
 
-  function removeButton() {
-    console.log("remove");
+  async function removeButton() {
+    const result = await deleteImage();
+    if (!result.success) {
+      alert("Fail to remove image");
+    } else {
+      location.reload();
+    }
   }
 
   async function imageChange(e) {

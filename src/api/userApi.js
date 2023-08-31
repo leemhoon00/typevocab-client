@@ -46,3 +46,11 @@ export const uploadImage = async (file) => {
   });
   return await res.json();
 };
+
+export const deleteImage = async () => {
+  const res = await fetch(`${BACKEND_URL}/user/image`, {
+    method: "DELETE",
+    credentials: "include",
+  });
+  return await res.json();
+};
