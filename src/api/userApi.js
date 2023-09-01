@@ -28,7 +28,7 @@ export const updateUser = async (user) => {
     if (!res.ok) {
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
-    return await res.json();
+    return true;
   } catch (err) {
     console.error(err);
     return null;
@@ -44,7 +44,7 @@ export const deleteUser = async () => {
     if (!res.ok) {
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
-    return await res.json();
+    return true;
   } catch (err) {
     console.error(err);
     return null;
@@ -94,7 +94,7 @@ export const deleteImage = async () => {
     if (!res.ok) {
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
-    return await res.json();
+    return true;
   } catch (err) {
     console.error(err);
     return null;

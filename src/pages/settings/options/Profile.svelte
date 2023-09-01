@@ -12,10 +12,12 @@
 
   onMount(async () => {
     const user = await getUser();
-    name = user.name;
-    email = user.email;
-    bio = user.bio;
-    company = user.company;
+    if (user) {
+      name = user.name;
+      email = user.email;
+      bio = user.bio;
+      company = user.company;
+    }
   });
 
   const updateButtonEvent = async () => {
@@ -41,7 +43,7 @@
   const deleteButtonEvent = async () => {
     const result = await deleteUser();
 
-    if (result.success === true) {
+    if (result) {
       await replace("/");
       location.reload();
     } else {

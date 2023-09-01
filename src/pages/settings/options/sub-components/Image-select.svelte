@@ -6,7 +6,9 @@
   onMount(async () => {
     user.subscribe(async (user) => {
       const imageUrl = await getImageUrl(user.image);
-      document.getElementById("imageSelect").src = imageUrl;
+      if (imageUrl) {
+        document.getElementById("imageSelect").src = imageUrl;
+      }
     });
   });
 
@@ -16,21 +18,21 @@
 
   async function removeButton() {
     const result = await deleteImage();
-    if (!result.success) {
-      alert("Fail to remove image");
-    } else {
+    if (result) {
       location.reload();
+    } else {
+      alert("Fail to remove image");
     }
   }
 
   async function imageChange(e) {
     const file = e.currentTarget.files[0];
     if (file) {
-      const response = await uploadImage(file);
-      if (!response.success) {
-        alert("Fail to upload image");
-      } else {
+      const result = await uploadImage(file);
+      if (result) {
         location.reload();
+      } else {
+        alert("Fail to upload image");
       }
     }
   }

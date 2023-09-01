@@ -15,7 +15,9 @@
     });
 
     const imageUrl = await getImageUrl(newUser.image);
-    document.getElementById("settingButton").src = imageUrl;
+    if (imageUrl) {
+      document.getElementById("settingButton").src = imageUrl;
+    }
   });
 </script>
 
