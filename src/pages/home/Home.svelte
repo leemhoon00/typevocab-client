@@ -1,8 +1,15 @@
 <script>
   import { user } from "@src/store.js";
 
-  function tempFunction() {
-    console.log($user);
+  async function tempFunction() {
+    const response = await fetch("http://localhost:3000/test", {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(response);
   }
 </script>
 

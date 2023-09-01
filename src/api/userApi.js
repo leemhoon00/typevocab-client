@@ -5,8 +5,10 @@ export const getUser = async () => {
     const res = await fetch(`${BACKEND_URL}/user`, {
       credentials: "include",
     });
-    const data = await res.json();
-    return data;
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+    return await res.json();
   } catch (err) {
     console.error(err);
     return null;
@@ -23,8 +25,10 @@ export const updateUser = async (user) => {
       },
       body: JSON.stringify(user),
     });
-    const data = await res.json();
-    return data;
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+    return await res.json();
   } catch (err) {
     console.error(err);
     return null;
@@ -37,6 +41,9 @@ export const deleteUser = async () => {
       method: "DELETE",
       credentials: "include",
     });
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
     return await res.json();
   } catch (err) {
     console.error(err);
@@ -47,8 +54,11 @@ export const deleteUser = async () => {
 // S3에서 이미지 가져오기
 export const getImageUrl = async (url) => {
   try {
-    const imgResponse = await fetch(url);
-    const imgBlob = await imgResponse.blob();
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+    const imgBlob = await res.blob();
     return URL.createObjectURL(imgBlob);
   } catch (err) {
     console.error(err);
@@ -65,6 +75,9 @@ export const uploadImage = async (file) => {
       credentials: "include",
       body: formData,
     });
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
     return await res.json();
   } catch (err) {
     console.error(err);
@@ -78,6 +91,9 @@ export const deleteImage = async () => {
       method: "DELETE",
       credentials: "include",
     });
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
     return await res.json();
   } catch (err) {
     console.error(err);
