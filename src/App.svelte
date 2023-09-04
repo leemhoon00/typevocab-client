@@ -17,10 +17,14 @@
 
 {#if $isLoggedIn}
   <Navbar />
+  <hr />
   <Router {routes} />
 {:else}
   <Login />
 {/if}
 
 <style>
+  hr {
+    padding-top: 1.45rem;
+  }
 </style>

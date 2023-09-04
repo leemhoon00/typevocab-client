@@ -21,7 +21,7 @@
   });
 </script>
 
-<nav class="navbar navbar-expand-sm bg-body-tertiary">
+<nav class="navbar fixed-top navbar-expand-sm bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#/"
       ><img
@@ -72,7 +72,7 @@
     padding-right: 0;
   }
 
-  .navbar-nav > li > a {
+  a {
     cursor: pointer;
   }
 </style>
