@@ -78,7 +78,7 @@ export const uploadImage = async (file) => {
     if (!res.ok) {
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
-    return await res.json();
+    return true;
   } catch (err) {
     console.error(err);
     return null;

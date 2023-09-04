@@ -36,7 +36,7 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">단어장</a>
+          <a class="nav-link" aria-current="page" href="#/word">단어장</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" aria-current="page" href="#">문제</a>
@@ -64,10 +64,15 @@
     width: 2rem;
     height: 2rem;
     padding: 0;
+    margin-right: 1rem;
   }
 
   .navbar {
     padding: 0.5rem 1rem;
     padding-right: 0;
+  }
+
+  .navbar-nav > li > a {
+    cursor: pointer;
   }
 </style>
