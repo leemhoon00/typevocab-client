@@ -1,6 +1,15 @@
 <script>
+  import { onMount } from "svelte";
+  import { folders } from "@src/store.js";
   import Wordbook from "./sidebar/Wordbook.svelte";
   import NewFolderModal from "./components/NewFolderModal.svelte";
+
+  import { getFolders } from "@api/vocabApi";
+
+  onMount(async () => {
+    const result = await getFolders();
+    folders.set(result);
+  });
 </script>
 
 <div class="box">
@@ -9,7 +18,9 @@
       단어장
     </div>
     <ul class="list-unstyled">
-      <Wordbook />
+      {#each $folders as folder}
+        <Wordbook {folder} />
+      {/each}
       <button
         id="newFolderButton"
         class="btn rounded"

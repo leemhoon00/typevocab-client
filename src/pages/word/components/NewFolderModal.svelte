@@ -1,5 +1,7 @@
 <script>
   import { onMount } from "svelte";
+  import { createFolder, getFolders } from "@api/vocabApi";
+  import { folders } from "@src/store.js";
 
   onMount(() => {
     // 모달이 표시되면 input 요소에 포커스를 설정
@@ -7,11 +9,36 @@
     modal.addEventListener("shown.bs.modal", function () {
       document.getElementById("newFolderInput").focus();
     });
+
+    modal.addEventListener("hidden.bs.modal", function () {
+      document.getElementById("newFolderInput").value = "";
+    });
   });
 
-  function onKeyDown(e) {
+  async function onKeyDown(e) {
     if (e.keyCode === 13) {
-      console.log(e.target.value);
+      const result = await createFolder(e.target.value);
+      if (result) {
+        console.log(result);
+        // 폴더 생성 성공
+        // 모달 닫기
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("folderModal"),
+        );
+        modal.hide();
+        // 폴더 목록 갱신 - TODO
+
+        folders.update((value) => {
+          value.push({
+            _id: result._id,
+            title: result.title,
+          });
+          return value;
+        });
+      } else {
+        // 폴더 생성 실패
+        alert("폴더 생성에 실패했습니다.");
+      }
     }
   }
 </script>

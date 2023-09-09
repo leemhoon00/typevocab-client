@@ -1,13 +1,17 @@
+<script>
+  export let folder;
+</script>
+
 <li class="mb-1">
   <button
     class="btn btn-toggle align-items-center rounded collapsed"
     data-bs-toggle="collapse"
-    data-bs-target="#home-collapse"
+    data-bs-target="#{folder._id}-collapse"
     aria-expanded="true"
   >
-    Home
+    {folder.title}
   </button>
-  <div class="collapse show" id="home-collapse">
+  <div class="collapse show" id="{folder._id}-collapse">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
       <li>
         <span class="rounded">ㅇㅇㅇㅇ</span>

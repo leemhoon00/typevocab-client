@@ -9,3 +9,5 @@ export const user = writable({
   company: "",
   image: "",
 });
+
+export const folders = writable([]);
