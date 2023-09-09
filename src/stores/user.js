@@ -1,4 +1,4 @@
-import { writable, readable } from "svelte/store";
+import { writable } from "svelte/store";
 
 export const isLoggedIn = writable(false);
 
@@ -9,5 +9,3 @@ export const user = writable({
   company: "",
   image: "",
 });
-
-export const folders = writable([]);

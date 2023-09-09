@@ -1,7 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { createFolder, getFolders } from "@api/vocabApi";
-  import { folders } from "@src/store.js";
+  import { folders } from "@stores/vocab.js";
 
   onMount(() => {
     // 모달이 표시되면 input 요소에 포커스를 설정
@@ -19,7 +19,6 @@
     if (e.keyCode === 13) {
       const result = await createFolder(e.target.value);
       if (result) {
-        console.log(result);
         // 폴더 생성 성공
         // 모달 닫기
         const modal = bootstrap.Modal.getInstance(

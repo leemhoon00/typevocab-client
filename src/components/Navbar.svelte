@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { user } from "@src/store";
+  import { user } from "@stores/user";
   import { getUser, getImageUrl } from "@api/userApi";
 
   import Settingbar from "./Settingbar.svelte";

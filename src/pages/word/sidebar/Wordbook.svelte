@@ -1,16 +1,29 @@
 <script>
   export let folder;
+
+  import { deleteFolder } from "@api/vocabApi";
+
+  async function deleteButton() {
+    const result = await deleteFolder(folder._id);
+    if (result) {
+    }
+  }
 </script>
 
 <li class="mb-1">
-  <button
-    class="btn btn-toggle align-items-center rounded collapsed"
-    data-bs-toggle="collapse"
-    data-bs-target="#{folder._id}-collapse"
-    aria-expanded="true"
-  >
-    {folder.title}
-  </button>
+  <div class="d-flex">
+    <button
+      class="btn btn-toggle align-items-center rounded collapsed"
+      data-bs-toggle="collapse"
+      data-bs-target="#{folder._id}-collapse"
+      aria-expanded="true"
+    >
+      {folder.title}
+    </button>
+    <button class="btn deleteButton" on:click={deleteButton}
+      ><img class="trashImg" src="./images/trash.svg" alt="" /></button
+    >
+  </div>
   <div class="collapse show" id="{folder._id}-collapse">
     <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
       <li>
@@ -64,5 +77,11 @@
 
   .btn-toggle-nav li {
     padding-left: 1rem;
+  }
+
+  .deleteButton {
+    margin: 0;
+    padding: 0;
+    margin-left: auto;
   }
 </style>

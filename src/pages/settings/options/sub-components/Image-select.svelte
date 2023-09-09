@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { user } from "@src/store";
+  import { user } from "@stores/user";
   import { getImageUrl, uploadImage, deleteImage } from "@api/userApi";
 
   onMount(async () => {

@@ -1,7 +1,7 @@
 <script>
   import Router from "svelte-spa-router";
   import routes from "./routes/routes.js";
-  import { isLoggedIn } from "@src/store.js";
+  import { isLoggedIn } from "@stores/user.js";
   import Login from "./pages/login/Login.svelte";
   import { getCookie } from "@utils/cookieModule";
   import Navbar from "./components/Navbar.svelte";

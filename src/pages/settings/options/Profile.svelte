@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { user } from "@src/store.js";
+  import { user } from "@stores/user.js";
   import { getUser, updateUser, deleteUser } from "@api/userApi";
   import { replace } from "svelte-spa-router";
   import ImageSelect from "./sub-components/Image-select.svelte";

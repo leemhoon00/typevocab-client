@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { folders } from "@src/store.js";
+  import { folders } from "@stores/vocab.js";
   import Wordbook from "./sidebar/Wordbook.svelte";
   import NewFolderModal from "./components/NewFolderModal.svelte";
 

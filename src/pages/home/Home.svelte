@@ -1,5 +1,5 @@
 <script>
-  import { user } from "@src/store";
+  import { user } from "@stores/user";
   function tempFunction() {
     console.log($user);
   }
