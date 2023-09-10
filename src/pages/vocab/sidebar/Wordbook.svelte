@@ -23,7 +23,9 @@
       isNewVocabButtonClicked = false;
       const result = await createVocabulary(folder._id, e.target.value);
       if (result) {
-        console.log(result);
+        folders.update(() => {
+          return result;
+        });
       } else {
         console.log("단어장 생성 실패");
       }
@@ -59,7 +61,9 @@
   <div class="collapse show" id="{folder._id}-collapse">
     <div class="listDiv">
       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-        <VocabButton />
+        {#each folder.vocabularies as vocabulary}
+          <VocabButton {vocabulary} />
+        {/each}
       </ul>
       {#if !isNewVocabButtonClicked}
         <button

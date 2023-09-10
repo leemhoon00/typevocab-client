@@ -1,4 +1,6 @@
 <script>
+  export let vocabulary;
+
   function handlerClickButton() {
     console.log("vocabButton");
   }
@@ -6,7 +8,7 @@
 
 <li>
   <button on:click={handlerClickButton} class="rounded btn small hoverable"
-    >ㅇㅇㅇㅇ</button
+    >{vocabulary.title}</button
   >
 </li>
 
