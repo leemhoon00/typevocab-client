@@ -3,6 +3,8 @@
   import { deleteFolder } from "@api/vocabApi";
   import { folders } from "@stores/vocab";
 
+  import VocabButton from "../components/VocabButton.svelte";
+
   async function deleteButton() {
     const result = await deleteFolder(folder._id);
     if (result) {
@@ -18,24 +20,26 @@
 <li class="mb-1">
   <div class="d-flex">
     <button
-      class="btn btn-toggle align-items-center rounded collapsed"
+      class="btn btn-toggle hoverable align-items-center rounded collapsed"
       data-bs-toggle="collapse"
       data-bs-target="#{folder._id}-collapse"
       aria-expanded="true"
     >
       {folder.title}
     </button>
-    <button class="btn deleteButton" on:click={deleteButton}
+    <button class="btn deleteButton hoverable" on:click={deleteButton}
       ><img class="trashImg" src="./images/trash.svg" alt="" /></button
     >
   </div>
   <div class="collapse show" id="{folder._id}-collapse">
-    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-      <li>
-        <span class="rounded">ㅇㅇㅇㅇ</span>
-      </li>
-      <li><span class="rounded">ㅇㅇㅇㅇ</span></li>
-    </ul>
+    <div class="listDiv">
+      <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+        <VocabButton />
+      </ul>
+      <button class="hoverable btn newVocabButton"
+        ><img src="./images/plus.svg" alt="" /></button
+      >
+    </div>
   </div>
 </li>
 
@@ -46,13 +50,7 @@
     padding: 0.25rem 0.5rem;
     font-weight: 600;
     color: rgba(0, 0, 0, 0.65);
-    background-color: transparent;
     border: 0;
-  }
-  .btn-toggle:hover,
-  .btn-toggle:focus {
-    color: rgba(0, 0, 0, 0.85);
-    background-color: #d2f4ea;
   }
 
   .btn-toggle::before {
@@ -70,23 +68,18 @@
     transform: rotate(90deg);
   }
 
-  .btn-toggle-nav span {
-    display: inline-flex;
-    padding: 0.1875rem 0.5rem;
-    margin-top: 0.125rem;
-  }
-
-  .btn-toggle-nav span:hover {
-    background-color: #d2f4ea;
-  }
-
-  .btn-toggle-nav li {
-    padding-left: 1rem;
-  }
-
   .deleteButton {
     margin: 0;
     padding: 0;
     margin-left: auto;
+  }
+
+  .listDiv {
+    padding-left: 1.1875rem;
+  }
+
+  .newVocabButton {
+    margin: 0;
+    padding: 0;
   }
 </style>

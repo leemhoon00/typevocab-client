@@ -23,7 +23,7 @@
       {/each}
       <button
         id="newFolderButton"
-        class="btn rounded"
+        class="btn rounded hoverable"
         data-bs-toggle="modal"
         data-bs-target="#folderModal"
       >
@@ -65,10 +65,5 @@
     font-weight: 600;
     color: rgba(0, 0, 0, 0.65);
     border: 0;
-  }
-
-  #newFolderButton:hover {
-    color: rgba(0, 0, 0, 0.85);
-    background-color: #d2f4ea;
   }
 </style>
