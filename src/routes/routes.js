@@ -1,10 +1,10 @@
 import Home from "../pages/home/Home.svelte";
-import Word from "../pages/word/Word.svelte";
+import Vocab from "../pages/vocab/Vocab.svelte";
 import Setting from "../pages/settings/Settings.svelte";
 
 export default {
   "/": Home,
-  "/word": Word,
+  "/vocab": Vocab,
   "/settings": Setting,
   "/settings/*": Setting,
 };

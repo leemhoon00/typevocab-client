@@ -1,11 +1,16 @@
 <script>
   export let folder;
-
   import { deleteFolder } from "@api/vocabApi";
+  import { folders } from "@stores/vocab";
 
   async function deleteButton() {
     const result = await deleteFolder(folder._id);
     if (result) {
+      folders.update((currentValue) => {
+        return currentValue.filter((f) => f._id !== folder._id);
+      });
+    } else {
+      alert("폴더 삭제에 실패했습니다.");
     }
   }
 </script>

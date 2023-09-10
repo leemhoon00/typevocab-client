@@ -27,12 +27,12 @@
         modal.hide();
         // 폴더 목록 갱신 - TODO
 
-        folders.update((value) => {
-          value.push({
+        folders.update((currentValue) => {
+          currentValue.push({
             _id: result._id,
             title: result.title,
           });
-          return value;
+          return currentValue;
         });
       } else {
         // 폴더 생성 실패
