@@ -1,9 +1,30 @@
 <script>
   export let folder;
+  import { onMount } from "svelte";
   import { deleteFolder } from "@api/vocabApi";
   import { folders } from "@stores/vocab";
 
   import VocabButton from "../components/VocabButton.svelte";
+
+  let newVocabButton;
+  $: if (newVocabButton) {
+    newVocabButton.focus();
+  }
+
+  let isNewVocabButtonClicked = false;
+
+  function handlerClickNewVocabButton() {
+    isNewVocabButtonClicked = true;
+  }
+
+  async function handlerKeyDown(e) {
+    if (e.keyCode === 27) {
+      isNewVocabButtonClicked = false;
+    } else if (e.keyCode === 13) {
+      isNewVocabButtonClicked = false;
+      console.log(e.target.value);
+    }
+  }
 
   async function deleteButton() {
     const result = await deleteFolder(folder._id);
@@ -36,9 +57,24 @@
       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
         <VocabButton />
       </ul>
-      <button class="hoverable btn newVocabButton"
-        ><img src="./images/plus.svg" alt="" /></button
-      >
+      {#if !isNewVocabButtonClicked}
+        <button
+          on:click={handlerClickNewVocabButton}
+          class="hoverable btn newVocabButton"
+          ><img src="./images/plus.svg" alt="" />추가</button
+        >
+      {:else}
+        <input
+          id="newVocabName"
+          type="text"
+          class="form-control"
+          placeholder="새 단어장 이름"
+          aria-label="새 단어장 이름"
+          bind:this={newVocabButton}
+          on:keydown={handlerKeyDown}
+          on:focusout={() => (isNewVocabButtonClicked = false)}
+        />
+      {/if}
     </div>
   </div>
 </li>
@@ -81,5 +117,7 @@
   .newVocabButton {
     margin: 0;
     padding: 0;
+    font-size: 0.875rem;
+    color: green;
   }
 </style>
