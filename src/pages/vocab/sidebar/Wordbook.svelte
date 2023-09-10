@@ -1,7 +1,6 @@
 <script>
   export let folder;
-  import { onMount } from "svelte";
-  import { deleteFolder } from "@api/vocabApi";
+  import { deleteFolder, createVocabulary } from "@api/vocabApi";
   import { folders } from "@stores/vocab";
 
   import VocabButton from "../components/VocabButton.svelte";
@@ -22,7 +21,12 @@
       isNewVocabButtonClicked = false;
     } else if (e.keyCode === 13) {
       isNewVocabButtonClicked = false;
-      console.log(e.target.value);
+      const result = await createVocabulary(folder._id, e.target.value);
+      if (result) {
+        console.log(result);
+      } else {
+        console.log("단어장 생성 실패");
+      }
     }
   }
 

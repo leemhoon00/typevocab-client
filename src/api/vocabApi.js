@@ -52,3 +52,23 @@ export const deleteFolder = async (folderId) => {
     return false;
   }
 };
+
+export const createVocabulary = async (folderId, vocabularyName) => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/vocab/vocabulary`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ folderId, vocabularyName }),
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
