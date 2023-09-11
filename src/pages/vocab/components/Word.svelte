@@ -1,6 +1,16 @@
 <script>
   export let index;
   export let word;
+
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
+
+  function handlerInput(e) {
+    if (e.keyCode === 13) {
+      dispatch("plusEvent");
+      e.preventDefault();
+    }
+  }
 </script>
 
 <tr>
@@ -11,6 +21,7 @@
       type="text"
       class="form-control form-control-sm"
       value={word.word}
+      tabindex={index * 2}
     /></td
   >
   <td
@@ -19,6 +30,8 @@
       type="text"
       class="form-control form-control-sm"
       value={word.meaning}
+      on:keydown={handlerInput}
+      tabindex={index * 2 + 1}
     /></td
   >
 </tr>
