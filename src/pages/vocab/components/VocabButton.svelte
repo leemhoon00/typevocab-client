@@ -1,8 +1,14 @@
 <script>
   export let vocabulary;
 
-  function handlerClickButton() {
-    console.log("vocabButton");
+  import { getWords } from "@api/vocabApi";
+  import { selectedVocab } from "@stores/vocab";
+
+  async function handlerClickButton() {
+    selectedVocab.update(async () => {
+      const result = await getWords(vocabulary._id);
+      return result;
+    });
   }
 </script>
 

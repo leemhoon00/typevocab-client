@@ -1,14 +1,22 @@
 <script>
   import { onMount } from "svelte";
-  import { folders } from "@stores/vocab.js";
+  import { writable } from "svelte/store";
+  import { folders, selectedVocab } from "@stores/vocab.js";
+  import { getFolders } from "@api/vocabApi";
   import Wordbook from "./sidebar/Wordbook.svelte";
   import NewFolderModal from "./components/NewFolderModal.svelte";
-
-  import { getFolders } from "@api/vocabApi";
+  import Default from "./Default.svelte";
+  import Main from "./Main.svelte";
 
   onMount(async () => {
     const result = await getFolders();
     folders.set(result);
+  });
+
+  let vocabObject;
+
+  selectedVocab.subscribe(async (currentValue) => {
+    vocabObject = await currentValue;
   });
 </script>
 
@@ -32,7 +40,11 @@
     </ul>
   </aside>
 
-  <main style="background-color:skyblue;">ddd</main>
+  {#if !vocabObject}
+    <Default />
+  {:else}
+    <Main selectedVocab={vocabObject} />
+  {/if}
 </div>
 
 <NewFolderModal />
@@ -45,14 +57,11 @@
   }
   aside {
     overflow-y: auto;
+    border-right: 1px solid #dee2e6;
   }
 
   .fw-semibold {
     font-weight: 600;
-  }
-
-  main {
-    overflow-y: auto;
   }
 
   img {

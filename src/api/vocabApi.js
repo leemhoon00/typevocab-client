@@ -72,3 +72,39 @@ export const createVocabulary = async (folderId, vocabularyName) => {
     return null;
   }
 };
+
+export const createWords = async (vocabularyId, words) => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/vocab/words`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ vocabularyId, words }),
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+    return true;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+};
+
+export const getWords = async (vocabularyId) => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/vocab/words/${vocabularyId}`, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};

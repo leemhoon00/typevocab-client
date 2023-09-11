@@ -75,7 +75,7 @@
         <input
           id="newVocabName"
           type="text"
-          class="form-control"
+          class="form-control form-control-sm"
           placeholder="새 단어장 이름"
           aria-label="새 단어장 이름"
           bind:this={newVocabButton}
