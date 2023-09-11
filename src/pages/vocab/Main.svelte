@@ -1,29 +1,51 @@
 <script>
-  export let selectedVocab;
-  import { onMount } from "svelte";
-  import { createWords } from "@api/vocabApi";
+  export let sendedVocab;
+  import { selectedVocab } from "@stores/vocab";
+  import { createWords, getWords } from "@api/vocabApi";
+  import Word from "./components/Word.svelte";
+
+  let lastWordIndex = sendedVocab.words.length;
 
   async function handlerSubmit(e) {
     const form = e.target;
     const formData = new FormData(form);
     const words = [];
-    for (let i = 0; i < formData.getAll("word").length; i++) {
-      words.push({
-        word: formData.getAll("word")[i],
-        meaning: formData.getAll("meaning")[i],
-      });
+    const wordList = formData.getAll("word");
+    const meaningList = formData.getAll("meaning");
+    for (let i = 0; i < wordList.length; i++) {
+      if (wordList[i].trim() && meaningList[i].trim()) {
+        words.push({
+          word: wordList[i],
+          meaning: meaningList[i],
+        });
+      }
     }
-    const result = await createWords(selectedVocab._id, words);
+
+    const result = await createWords(sendedVocab._id, words);
+
     if (result) {
-      console.log(result);
+      selectedVocab.update(async () => {
+        const result = await getWords(sendedVocab._id);
+        return result;
+      });
     } else {
       console.log("단어 생성 실패");
     }
   }
+
+  function handlerPlusButton(e) {
+    new Word({
+      target: document.querySelector("tbody"), // 부모 노드를 대상으로 선택합니다.
+      props: {
+        index: ++lastWordIndex,
+        word: { word: "", meaning: "" },
+      },
+    });
+  }
 </script>
 
 <main>
-  <h1 class="text-center mb-4">{selectedVocab.title}</h1>
+  <h1 class="text-center mb-4">{sendedVocab.title}</h1>
   <form
     on:submit|preventDefault={handlerSubmit}
     id="wordsForm"
@@ -38,24 +60,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="text-center align-middle">1</td>
-          <td
-            ><input
-              name="word"
-              type="text"
-              class="form-control form-control-sm"
-            /></td
-          >
-          <td
-            ><input
-              name="meaning"
-              type="text"
-              class="form-control form-control-sm"
-            /></td
+        {#each sendedVocab.words as word, index}
+          <Word {word} index={index + 1} />
+        {/each}
+      </tbody>
+      <tfoot>
+        <tr id="plusTr">
+          <td colspan="3" class="text-center align-middle"
+            ><button
+              type="button"
+              on:click={handlerPlusButton}
+              class="btn plus hoverable">+</button
+            ></td
           >
         </tr>
-      </tbody>
+      </tfoot>
     </table>
 
     <button class="btn btn-success submitButton mt-2 align-self-end"
@@ -86,5 +105,10 @@
 
   .submitButton {
     margin-left: auto;
+  }
+
+  .plus {
+    padding: 0 0.5rem;
+    width: 100%;
   }
 </style>

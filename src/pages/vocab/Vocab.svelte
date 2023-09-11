@@ -1,6 +1,5 @@
 <script>
   import { onMount } from "svelte";
-  import { writable } from "svelte/store";
   import { folders, selectedVocab } from "@stores/vocab.js";
   import { getFolders } from "@api/vocabApi";
   import Wordbook from "./sidebar/Wordbook.svelte";
@@ -43,7 +42,9 @@
   {#if !vocabObject}
     <Default />
   {:else}
-    <Main selectedVocab={vocabObject} />
+    {#key vocabObject}
+      <Main sendedVocab={vocabObject} />
+    {/key}
   {/if}
 </div>
 
