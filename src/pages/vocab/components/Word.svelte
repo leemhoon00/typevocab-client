@@ -1,6 +1,9 @@
 <script>
   export let index;
   export let word;
+  export let focus;
+
+  let buttonIndex;
 
   import { onMount } from "svelte";
   import { createEventDispatcher } from "svelte";
@@ -10,7 +13,9 @@
     const wordInput = document.querySelector(
       `input[name="word"][tabindex="${index * 2}"]`,
     );
-    wordInput.focus();
+    if (focus) {
+      wordInput.focus();
+    }
   });
 
   function handlerInput(e) {
@@ -19,10 +24,33 @@
       e.preventDefault();
     }
   }
+
+  function removeEvent(e) {
+    e.preventDefault();
+    dispatch("removeEvent", index);
+  }
+
+  function mouseEnterHandler(e) {
+    buttonIndex = e.target.innerText;
+    e.target.innerText = "-";
+    e.target.classList.add("remove");
+  }
+
+  function mouseLeaveHandler(e) {
+    e.target.innerText = buttonIndex;
+    e.target.classList.remove("remove");
+  }
 </script>
 
-<tr>
-  <td class="text-center align-middle">{index}</td>
+<tr class="tr-{index}">
+  <td class="text-center align-middle"
+    ><button
+      on:mouseenter={mouseEnterHandler}
+      on:mouseleave={mouseLeaveHandler}
+      on:click={removeEvent}
+      class="btn">{index}</button
+    ></td
+  >
   <td
     ><input
       name="word"
@@ -43,3 +71,6 @@
     /></td
   >
 </tr>
+
+<style>
+</style>

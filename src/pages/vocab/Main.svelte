@@ -39,9 +39,11 @@
       props: {
         index: ++lastWordIndex,
         word: { word: "", meaning: "" },
+        focus: true,
       },
     });
     newWordComponent.$on("plusEvent", handlerPlusEvent);
+    newWordComponent.$on("removeEvent", removeWordHandler);
   }
 
   async function handlerDeleteButton() {
@@ -53,6 +55,27 @@
     } else {
       alert("단어장 삭제에 실패했습니다.");
     }
+  }
+
+  async function removeWordHandler(e) {
+    document.querySelector(`.tr-${e.detail}`).remove();
+
+    for (let i = e.detail; i < lastWordIndex; i++) {
+      const wordInput = document.querySelector(
+        `input[name="word"][tabindex="${i * 2 + 2}"]`,
+      );
+      const meaningInput = document.querySelector(
+        `input[name="meaning"][tabindex="${i * 2 + 3}"]`,
+      );
+      wordInput.setAttribute("tabindex", i * 2);
+      meaningInput.setAttribute("tabindex", i * 2 + 1);
+
+      const wordLi = document.querySelector(`.tr-${i + 1}`);
+      wordLi.classList.replace(`tr-${i + 1}`, `tr-${i}`);
+      wordLi.querySelector("button").innerText = i;
+    }
+
+    lastWordIndex--;
   }
 </script>
 
@@ -73,7 +96,13 @@
       </thead>
       <tbody>
         {#each sendedVocab.words as word, index}
-          <Word {word} index={index + 1} on:plusEvent={handlerPlusEvent} />
+          <Word
+            {word}
+            index={index + 1}
+            focus={false}
+            on:plusEvent={handlerPlusEvent}
+            on:removeEvent={removeWordHandler}
+          />
         {/each}
       </tbody>
       <tfoot>

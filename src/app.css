@@ -32,3 +32,7 @@ h3 {
   color: rgba(0, 0, 0, 0.85);
   background-color: #d2f4ea;
 }
+
+.remove {
+  background-color: #ff6969 !important;
+}
