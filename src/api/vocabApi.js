@@ -124,3 +124,19 @@ export const deleteVocabulary = async (vocabularyId) => {
     return false;
   }
 };
+
+export const getSpeech = async (word) => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/vocab/speech/${word}`, {
+      method: "GET",
+      credentials: "include",
+    });
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+    return res.body;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};

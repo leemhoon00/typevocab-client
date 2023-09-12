@@ -1,7 +1,14 @@
 <script>
   import { user } from "@stores/user";
   function tempFunction() {
-    console.log($user);
+    const message = new SpeechSynthesisUtterance();
+    message.lang = "en-US";
+    message.pitch = 1;
+    message.rate = 1;
+    message.text = "HELLO WORLD";
+    message.volume = 1;
+
+    window.speechSynthesis.speak(message);
   }
 </script>
 

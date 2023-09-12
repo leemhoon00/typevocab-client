@@ -5,8 +5,8 @@
 
   let buttonIndex;
 
-  import { onMount } from "svelte";
-  import { createEventDispatcher } from "svelte";
+  import { getSpeech } from "@api/vocabApi";
+  import { onMount, createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
   onMount(() => {
@@ -18,16 +18,40 @@
     }
   });
 
-  function handlerInput(e) {
+  async function streamToBlob(stream) {
+    const reader = stream.getReader();
+    const chunks = [];
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+      chunks.push(value);
+    }
+    return new Blob(chunks, { type: "audio/mpeg" });
+  }
+
+  async function handlerInput(e) {
     if (e.keyCode === 13) {
       dispatch("plusEvent");
       e.preventDefault();
+      const TTSWord =
+        e.target.parentNode.parentNode.querySelector(
+          'input[name="word"]',
+        ).value;
+      const result = await getSpeech(TTSWord);
+
+      const blob = await streamToBlob(result);
+
+      const audioUrl = URL.createObjectURL(blob);
+      const audioElement = new Audio(audioUrl);
+      audioElement.play();
     }
   }
 
   function removeEvent(e) {
     e.preventDefault();
-    dispatch("removeEvent", index);
+    dispatch("removeEvent", buttonIndex);
   }
 
   function mouseEnterHandler(e) {
@@ -42,7 +66,7 @@
   }
 </script>
 
-<tr class="tr-{index}">
+<tr class="tr-{index} align-middle">
   <td class="text-center align-middle"
     ><button
       on:mouseenter={mouseEnterHandler}

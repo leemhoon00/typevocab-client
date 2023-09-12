@@ -1,7 +1,12 @@
 <script>
   export let sendedVocab;
-  import { selectedVocab } from "@stores/vocab";
-  import { createWords, getWords, deleteVocabulary } from "@api/vocabApi";
+  import { selectedVocab, folders } from "@stores/vocab";
+  import {
+    createWords,
+    getWords,
+    deleteVocabulary,
+    getFolders,
+  } from "@api/vocabApi";
   import Word from "./components/Word.svelte";
 
   let lastWordIndex = sendedVocab.words.length;
@@ -52,6 +57,13 @@
       selectedVocab.update((currentValue) => {
         return null;
       });
+
+      const newFolders = await getFolders();
+      if (newFolders) {
+        folders.update(() => {
+          return newFolders;
+        });
+      }
     } else {
       alert("단어장 삭제에 실패했습니다.");
     }
@@ -70,7 +82,7 @@
       wordInput.setAttribute("tabindex", i * 2);
       meaningInput.setAttribute("tabindex", i * 2 + 1);
 
-      const wordLi = document.querySelector(`.tr-${i + 1}`);
+      const wordLi = document.querySelector(`.tr-${+i + 1}`);
       wordLi.classList.replace(`tr-${i + 1}`, `tr-${i}`);
       wordLi.querySelector("button").innerText = i;
     }
