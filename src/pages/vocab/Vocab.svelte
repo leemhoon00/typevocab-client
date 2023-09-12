@@ -16,7 +16,6 @@
 
   selectedVocab.subscribe(async (currentValue) => {
     vocabObject = await currentValue;
-    console.log("changed");
   });
 </script>
 

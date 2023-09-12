@@ -1,52 +1,47 @@
 <script>
   export let sendedVocab;
-  import { onMount } from "svelte";
   import { selectedVocab } from "@stores/vocab";
   import { createWords, getWords, deleteVocabulary } from "@api/vocabApi";
   import Word from "./components/Word.svelte";
 
   let lastWordIndex = sendedVocab.words.length;
 
-  onMount(() => {
-    console.log("aaa");
-  });
-
   async function handlerSubmit(e) {
-    console.log(e);
-    // const form = e.target;
-    // const formData = new FormData(form);
-    // const words = [];
-    // const wordList = formData.getAll("word");
-    // const meaningList = formData.getAll("meaning");
-    // for (let i = 0; i < wordList.length; i++) {
-    //   if (wordList[i].trim() && meaningList[i].trim()) {
-    //     words.push({
-    //       word: wordList[i],
-    //       meaning: meaningList[i],
-    //     });
-    //   }
-    // }
+    const form = e.target;
+    const formData = new FormData(form);
+    const words = [];
+    const wordList = formData.getAll("word");
+    const meaningList = formData.getAll("meaning");
+    for (let i = 0; i < wordList.length; i++) {
+      if (wordList[i].trim() && meaningList[i].trim()) {
+        words.push({
+          word: wordList[i],
+          meaning: meaningList[i],
+        });
+      }
+    }
 
-    // const result = await createWords(sendedVocab._id, words);
+    const result = await createWords(sendedVocab._id, words);
 
-    // if (result) {
-    //   selectedVocab.update(async () => {
-    //     const result = await getWords(sendedVocab._id);
-    //     return result;
-    //   });
-    // } else {
-    //   console.log("단어 생성 실패");
-    // }
+    if (result) {
+      selectedVocab.update(async () => {
+        const result = await getWords(sendedVocab._id);
+        return result;
+      });
+    } else {
+      console.log("단어 생성 실패");
+    }
   }
 
   function handlerPlusEvent() {
-    new Word({
-      target: document.querySelector("tbody"), // 부모 노드를 대상으로 선택합니다.
+    const newWordComponent = new Word({
+      target: document.querySelector("tbody"),
       props: {
         index: ++lastWordIndex,
         word: { word: "", meaning: "" },
       },
     });
+    newWordComponent.$on("plusEvent", handlerPlusEvent);
   }
 
   async function handlerDeleteButton() {

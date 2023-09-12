@@ -2,8 +2,16 @@
   export let index;
   export let word;
 
+  import { onMount } from "svelte";
   import { createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
+
+  onMount(() => {
+    const wordInput = document.querySelector(
+      `input[name="word"][tabindex="${index * 2}"]`,
+    );
+    wordInput.focus();
+  });
 
   function handlerInput(e) {
     if (e.keyCode === 13) {
