@@ -72,7 +72,7 @@
   async function removeWordHandler(e) {
     document.querySelector(`.tr-${e.detail}`).remove();
 
-    for (let i = e.detail; i < lastWordIndex; i++) {
+    for (let i = +e.detail; i < lastWordIndex; i++) {
       const wordInput = document.querySelector(
         `input[name="word"][tabindex="${i * 2 + 2}"]`,
       );
@@ -147,6 +147,7 @@
   main {
     overflow-y: auto;
     padding: 2rem;
+    margin-bottom: 3rem;
   }
 
   .narrow {

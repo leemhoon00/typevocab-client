@@ -6,6 +6,7 @@
   let buttonIndex;
 
   import { getSpeech } from "@api/vocabApi";
+  import { streamToBlob } from "@utils/vocabUtil";
   import { onMount, createEventDispatcher } from "svelte";
   const dispatch = createEventDispatcher();
 
@@ -18,34 +19,61 @@
     }
   });
 
-  async function streamToBlob(stream) {
-    const reader = stream.getReader();
-    const chunks = [];
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) {
-        break;
-      }
-      chunks.push(value);
-    }
-    return new Blob(chunks, { type: "audio/mpeg" });
-  }
-
-  async function handlerInput(e) {
+  async function meaningInputHandler(e) {
     if (e.keyCode === 13) {
       dispatch("plusEvent");
       e.preventDefault();
-      const TTSWord =
-        e.target.parentNode.parentNode.querySelector(
-          'input[name="word"]',
-        ).value;
-      const result = await getSpeech(TTSWord);
+      const TTSWord = e.target.parentNode.parentNode
+        .querySelector('input[name="word"]')
+        .value.trim();
 
+      const result = await getSpeech(TTSWord);
       const blob = await streamToBlob(result);
 
       const audioUrl = URL.createObjectURL(blob);
       const audioElement = new Audio(audioUrl);
       audioElement.play();
+    } else if (e.keyCode === 40) {
+      // 아래 화살표
+      document
+        .querySelector(
+          `input[tabindex="${+e.target.getAttribute("tabindex") + 2}"]`,
+        )
+        .focus();
+    } else if (e.keyCode === 38) {
+      // 위 화살표
+      document
+        .querySelector(
+          `input[tabindex="${+e.target.getAttribute("tabindex") - 2}"]`,
+        )
+        .focus();
+    }
+  }
+
+  async function wordInputHandler(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+
+      const result = await getSpeech(e.target.value.trim());
+      const blob = await streamToBlob(result);
+
+      const audioUrl = URL.createObjectURL(blob);
+      const audioElement = new Audio(audioUrl);
+      audioElement.play();
+    } else if (e.keyCode === 40) {
+      // 아래 화살표
+      document
+        .querySelector(
+          `input[tabindex="${+e.target.getAttribute("tabindex") + 2}"]`,
+        )
+        .focus();
+    } else if (e.keyCode === 38) {
+      // 위 화살표
+      document
+        .querySelector(
+          `input[tabindex="${+e.target.getAttribute("tabindex") - 2}"]`,
+        )
+        .focus();
     }
   }
 
@@ -82,6 +110,7 @@
       class="form-control form-control-sm"
       value={word.word}
       tabindex={index * 2}
+      on:keydown={wordInputHandler}
     /></td
   >
   <td
@@ -90,7 +119,7 @@
       type="text"
       class="form-control form-control-sm"
       value={word.meaning}
-      on:keydown={handlerInput}
+      on:keydown={meaningInputHandler}
       tabindex={index * 2 + 1}
     /></td
   >
