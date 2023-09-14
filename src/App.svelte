@@ -26,5 +26,6 @@
 <style>
   hr {
     padding-top: 1.45rem;
+    border: 0;
   }
 </style>

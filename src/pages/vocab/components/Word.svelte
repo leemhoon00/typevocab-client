@@ -19,15 +19,11 @@
     }
   });
 
-  async function meaningInputHandler(e) {
+  async function wordInputHandler(e) {
     if (e.keyCode === 13) {
-      dispatch("plusEvent");
       e.preventDefault();
-      const TTSWord = e.target.parentNode.parentNode
-        .querySelector('input[name="word"]')
-        .value.trim();
 
-      const result = await getSpeech(TTSWord);
+      const result = await getSpeech(e.target.value.trim());
       const blob = await streamToBlob(result);
 
       const audioUrl = URL.createObjectURL(blob);
@@ -50,11 +46,15 @@
     }
   }
 
-  async function wordInputHandler(e) {
+  async function meaningInputHandler(e) {
     if (e.keyCode === 13) {
+      dispatch("plusEvent");
       e.preventDefault();
+      const TTSWord = e.target.parentNode.parentNode
+        .querySelector('input[name="word"]')
+        .value.trim();
 
-      const result = await getSpeech(e.target.value.trim());
+      const result = await getSpeech(TTSWord);
       const blob = await streamToBlob(result);
 
       const audioUrl = URL.createObjectURL(blob);
@@ -107,7 +107,7 @@
     ><input
       name="word"
       type="text"
-      class="form-control form-control-sm"
+      class="form-control form-control-sm rounded"
       value={word.word}
       tabindex={index * 2}
       on:keydown={wordInputHandler}
@@ -117,7 +117,7 @@
     ><input
       name="meaning"
       type="text"
-      class="form-control form-control-sm"
+      class="form-control form-control-sm rounded"
       value={word.meaning}
       on:keydown={meaningInputHandler}
       tabindex={index * 2 + 1}
@@ -126,4 +126,12 @@
 </tr>
 
 <style>
+  td {
+    padding: 0;
+  }
+
+  input {
+    border: 0;
+    box-shadow: none;
+  }
 </style>

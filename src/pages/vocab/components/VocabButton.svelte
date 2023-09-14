@@ -22,5 +22,7 @@
   button {
     --bs-btn-font-size: 0.875rem;
     padding: 0;
+    width: 100%;
+    text-align: start;
   }
 </style>

@@ -39,7 +39,7 @@
           <a class="nav-link" aria-current="page" href="#/vocab">단어장</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">문제</a>
+          <a class="nav-link" aria-current="page" href="#/problem">문제</a>
         </li>
       </ul>
       <img

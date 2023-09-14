@@ -169,7 +169,12 @@
   }
 
   .plus {
+    font-size: 1.5rem;
     padding: 0 0.5rem;
     width: 100%;
+  }
+
+  td {
+    padding: 0;
   }
 </style>
