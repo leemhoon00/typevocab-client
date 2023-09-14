@@ -103,9 +103,10 @@
       class="btn">{index}</button
     ></td
   >
-  <td
+  <td class="wordTd"
     ><input
       name="word"
+      id="wordInput"
       type="text"
       class="form-control form-control-sm rounded"
       value={word.word}
@@ -126,6 +127,9 @@
 </tr>
 
 <style>
+  .wordTd {
+    padding-right: 0.2rem;
+  }
   td {
     padding: 0;
   }
