@@ -19,6 +19,15 @@
     e.target.querySelector("input").checked =
       !e.target.querySelector("input").checked;
   }
+
+  function selectAllHandler(e) {
+    const target = e.target.querySelector("input");
+    target.checked = !target.checked;
+    const vocaCheckboxes = document.querySelectorAll(".vocaCheckbox");
+    for (let vocaCheckbox of vocaCheckboxes) {
+      vocaCheckbox.checked = target.checked;
+    }
+  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -67,16 +76,30 @@
           <ul class="list-group">
             {#key selectedFolder}
               {#if selectedFolder}
+                <li
+                  class="list-group-item hoverable"
+                  on:click={selectAllHandler}
+                >
+                  <div class="form-check">
+                    <input
+                      type="checkbox"
+                      id="all"
+                      class="form-check-input"
+                    /><label for="all" class="form-check-label hoverable"
+                      >전체선택</label
+                    >
+                  </div>
+                </li>
                 {#each $folders.find((folder) => folder.title === selectedFolder).vocabularies as voca}
                   <li
                     class="list-group-item hoverable"
                     on:click={vocaClickHandler}
                   >
-                    <div class="form-cehck">
+                    <div class="form-check">
                       <input
                         type="checkbox"
                         id={voca._id}
-                        class="form-check-input"
+                        class="form-check-input vocaCheckbox"
                       /><label for={voca._id} class="form-check-label hoverable"
                         >{voca.title}</label
                       >
