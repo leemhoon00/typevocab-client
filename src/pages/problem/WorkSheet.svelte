@@ -1,7 +1,7 @@
 <script>
   export let problem;
   import Word from "./Word.svelte";
-  import { downloadProblem } from "@utils/pdfUtil";
+  import { downloadAnswer, downloadProblem } from "@utils/pdfUtil";
 
   function downloadPdf() {
     downloadProblem(problem);
