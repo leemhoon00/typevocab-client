@@ -10,3 +10,7 @@ export async function streamToBlob(stream) {
   }
   return new Blob(chunks, { type: "audio/mpeg" });
 }
+
+export function arrayToQueryString(key, array) {
+  return array.map((value) => `${key}=${encodeURIComponent(value)}`).join("&");
+}

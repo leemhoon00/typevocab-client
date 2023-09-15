@@ -1,9 +1,13 @@
 <script>
   import { onMount } from "svelte";
   import { folders } from "@stores/problem";
-  import { getFolders } from "@api/vocabApi";
+  import { getFolders, createProblem } from "@api/vocabApi";
+
+  import WorkSheet from "./WorkSheet.svelte";
 
   let selectedFolder = null;
+  let randomOption = false;
+  let problem = null;
 
   onMount(async () => {
     const foldersJson = await getFolders();
@@ -28,14 +32,31 @@
       vocaCheckbox.checked = target.checked;
     }
   }
+
+  async function createProblemHandler() {
+    const selectedVocas = [];
+    document.querySelectorAll(".vocaCheckbox").forEach((checkbox) => {
+      if (checkbox.checked) {
+        selectedVocas.push(checkbox.value);
+      }
+    });
+
+    const result = await createProblem(randomOption, selectedVocas);
+
+    if (result) {
+      problem = result;
+    } else {
+      console.log("문제 생성 실패");
+    }
+  }
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
 <div class="container">
-  <div class="optionDiv row">
-    <div class="col-6">
+  <div class="row">
+    <div class="col-4">
       <div class="dropdown">
         <button
           id="folderBtn"
@@ -54,7 +75,7 @@
       </div>
     </div>
 
-    <div class="col-6">
+    <div class="col-4">
       <div class="dropdown">
         <button
           class="btn dropdown-toggle hoverable"
@@ -77,7 +98,7 @@
             {#key selectedFolder}
               {#if selectedFolder}
                 <li
-                  class="list-group-item hoverable"
+                  class="list-group-item hoverable transparent-background"
                   on:click={selectAllHandler}
                 >
                   <div class="form-check">
@@ -92,7 +113,7 @@
                 </li>
                 {#each $folders.find((folder) => folder.title === selectedFolder).vocabularies as voca}
                   <li
-                    class="list-group-item hoverable"
+                    class="list-group-item hoverable transparent-background"
                     on:click={vocaClickHandler}
                   >
                     <div class="form-check">
@@ -100,6 +121,7 @@
                         type="checkbox"
                         id={voca._id}
                         class="form-check-input vocaCheckbox"
+                        value={voca._id}
                       /><label for={voca._id} class="form-check-label hoverable"
                         >{voca.title}</label
                       >
@@ -112,7 +134,28 @@
         </ul>
       </div>
     </div>
+
+    <div class="col-2 text-center">
+      <input
+        type="checkbox"
+        class="btn-check"
+        id="btn-check-outlined"
+        autocomplete="off"
+        bind:checked={randomOption}
+      />
+      <label class="btn btn-outline-warning" for="btn-check-outlined"
+        >랜덤</label
+      ><br />
+    </div>
+    <div class="col-2 text-center">
+      <button class="btn hoverable" on:click={createProblemHandler}
+        >문제만들기</button
+      >
+    </div>
   </div>
+  {#if problem}
+    <WorkSheet bind:problem />
+  {/if}
 </div>
 
 <style>
@@ -132,7 +175,21 @@
     border: none;
   }
 
+  .form-check {
+    position: relative;
+    z-index: -1;
+  }
+
   .form-check-input {
     margin-right: 0.5rem;
+  }
+
+  .transparent-background {
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0
+    ); /* 빨간색 배경을 50% 투명하게 설정 */
   }
 </style>

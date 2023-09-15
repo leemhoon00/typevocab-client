@@ -112,6 +112,7 @@
       value={word.word}
       tabindex={index * 2}
       on:keydown={wordInputHandler}
+      autocomplete="off"
     /></td
   >
   <td
@@ -122,6 +123,7 @@
       value={word.meaning}
       on:keydown={meaningInputHandler}
       tabindex={index * 2 + 1}
+      autocomplete="off"
     /></td
   >
 </tr>

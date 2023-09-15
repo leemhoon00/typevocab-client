@@ -36,3 +36,7 @@ h3 {
 .remove {
   background-color: #ff6969 !important;
 }
+
+.hide {
+  display: none;
+}

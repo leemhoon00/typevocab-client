@@ -1,4 +1,5 @@
 import { BACKEND_URL } from "@src/config.js";
+import { arrayToQueryString } from "@utils/vocabUtil.js";
 
 export const createFolder = async (folderName) => {
   try {
@@ -135,6 +136,27 @@ export const getSpeech = async (word) => {
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return res.body;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+export const createProblem = async (randomOption, vocabularies) => {
+  try {
+    const queryString = arrayToQueryString("vocabularies", vocabularies);
+    const url = `${BACKEND_URL}/vocab/problem?randomOption=${randomOption}&${queryString}`;
+
+    const res = await fetch(url, {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+
+    return await res.json();
   } catch (err) {
     console.error(err);
     return null;
