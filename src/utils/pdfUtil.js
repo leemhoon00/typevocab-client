@@ -59,7 +59,7 @@ export function downloadAnswer(data) {
     body: body,
   });
 
-  doc.save("table.pdf");
+  doc.save("answer.pdf");
 }
 
 export function downloadProblem(data) {
@@ -109,5 +109,5 @@ export function downloadProblem(data) {
     body: body,
   });
 
-  doc.save("table.pdf");
+  doc.save("question.pdf");
 }

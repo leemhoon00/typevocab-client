@@ -3,8 +3,12 @@
   import Word from "./Word.svelte";
   import { downloadAnswer, downloadProblem } from "@utils/pdfUtil";
 
-  function downloadPdf() {
+  function problemClickHandler() {
     downloadProblem(problem);
+  }
+
+  function answerClickHandler() {
+    downloadAnswer(problem);
   }
 
   let showAnswer = false;
@@ -27,9 +31,33 @@
   }
 </script>
 
-<button id="pdfButton" on:click={downloadPdf} class="btn hoverable"
-  >pdf출력</button
->
+<div class="dropdown">
+  <button
+    id="pdfToggleBtn"
+    class="btn btn-outline-success hoverable dropdown-toggle"
+    type="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    PDF 다운로드
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <button
+        class="dropdown-item d-flex align-items-center hoverable"
+        on:click={problemClickHandler}
+        >문제지<img src="images/download.svg" alt="" /></button
+      >
+    </li>
+    <li>
+      <button
+        class="dropdown-item d-flex align-items-center hoverable"
+        on:click={answerClickHandler}
+        >답지<img src="images/download.svg" alt="" /></button
+      >
+    </li>
+  </ul>
+</div>
 <table id="problemTable" class="table table-bordered">
   <thead class="text-center">
     <tr>
@@ -58,8 +86,9 @@
 </table>
 
 <style>
-  #pdfButton {
+  #pdfToggleBtn {
     margin-top: 2rem;
+    margin-bottom: 1rem;
   }
   .narrow {
     width: 6%;
@@ -77,5 +106,9 @@
 
   td {
     padding: 0;
+  }
+
+  img {
+    margin-left: auto;
   }
 </style>
