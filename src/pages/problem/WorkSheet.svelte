@@ -1,7 +1,11 @@
 <script>
   export let problem;
-  import { onMount } from "svelte";
   import Word from "./Word.svelte";
+  import { downloadProblem } from "@utils/pdfUtil";
+
+  function downloadPdf() {
+    downloadProblem(problem);
+  }
 
   let showAnswer = false;
 
@@ -23,7 +27,10 @@
   }
 </script>
 
-<table class="table table-bordered">
+<button id="pdfButton" on:click={downloadPdf} class="btn hoverable"
+  >pdf출력</button
+>
+<table id="problemTable" class="table table-bordered">
   <thead class="text-center">
     <tr>
       <th class="narrow">No.</th>
@@ -51,7 +58,7 @@
 </table>
 
 <style>
-  table {
+  #pdfButton {
     margin-top: 2rem;
   }
   .narrow {
