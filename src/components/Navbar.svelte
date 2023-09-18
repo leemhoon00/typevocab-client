@@ -23,15 +23,7 @@
 
 <nav class="navbar fixed-top navbar-expand-sm bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#/"
-      ><img
-        src="./vite.svg"
-        alt="Logo"
-        width="30"
-        height="24"
-        class="d-inline-block align-text-top"
-      />TypeVocab</a
-    >
+    <a class="navbar-brand" href="#/">TypeVocab</a>
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">

@@ -8,6 +8,7 @@
   import { getSpeech } from "@api/vocabApi";
   import { streamToBlob } from "@utils/vocabUtil";
   import { onMount, createEventDispatcher } from "svelte";
+  import { onSpeaker } from "@stores/vocab";
   const dispatch = createEventDispatcher();
 
   onMount(() => {
@@ -23,12 +24,14 @@
     if (e.keyCode === 13) {
       e.preventDefault();
 
-      const result = await getSpeech(e.target.value.trim());
-      const blob = await streamToBlob(result);
+      if ($onSpeaker) {
+        const result = await getSpeech(e.target.value.trim());
+        const blob = await streamToBlob(result);
 
-      const audioUrl = URL.createObjectURL(blob);
-      const audioElement = new Audio(audioUrl);
-      audioElement.play();
+        const audioUrl = URL.createObjectURL(blob);
+        const audioElement = new Audio(audioUrl);
+        audioElement.play();
+      }
     } else if (e.keyCode === 40) {
       // 아래 화살표
       document
@@ -50,16 +53,18 @@
     if (e.keyCode === 13) {
       dispatch("plusEvent");
       e.preventDefault();
-      const TTSWord = e.target.parentNode.parentNode
-        .querySelector('input[name="word"]')
-        .value.trim();
+      if ($onSpeaker) {
+        const TTSWord = e.target.parentNode.parentNode
+          .querySelector('input[name="word"]')
+          .value.trim();
 
-      const result = await getSpeech(TTSWord);
-      const blob = await streamToBlob(result);
+        const result = await getSpeech(TTSWord);
+        const blob = await streamToBlob(result);
 
-      const audioUrl = URL.createObjectURL(blob);
-      const audioElement = new Audio(audioUrl);
-      audioElement.play();
+        const audioUrl = URL.createObjectURL(blob);
+        const audioElement = new Audio(audioUrl);
+        audioElement.play();
+      }
     } else if (e.keyCode === 40) {
       // 아래 화살표
       document

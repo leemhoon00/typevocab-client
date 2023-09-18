@@ -1,6 +1,6 @@
 <script>
   export let sendedVocab;
-  import { selectedVocab, folders } from "@stores/vocab";
+  import { selectedVocab, folders, onSpeaker } from "@stores/vocab";
   import {
     createWords,
     getWords,
@@ -94,10 +94,34 @@
 
     lastWordIndex--;
   }
+
+  function toggleSpeaker(e) {
+    if ($onSpeaker) {
+      e.target.src = "/images/volume-mute.svg";
+      onSpeaker.update(() => {
+        return false;
+      });
+    } else {
+      e.target.src = "/images/volume-up.svg";
+      onSpeaker.update(() => {
+        return true;
+      });
+    }
+  }
 </script>
 
 <main>
-  <h1 class="text-center mb-4">{sendedVocab.vocabularyName}</h1>
+  <h1 class="text-center mb-4">
+    {sendedVocab.vocabularyName}
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
+    <img
+      src="/images/volume-up.svg"
+      alt=""
+      class="hoverable rounded"
+      on:click={toggleSpeaker}
+    />
+  </h1>
   <form
     on:submit|preventDefault={handlerSubmit}
     id="wordsForm"
@@ -181,5 +205,16 @@
 
   td {
     padding: 0;
+  }
+
+  h1 {
+    position: relative;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2rem;
   }
 </style>
