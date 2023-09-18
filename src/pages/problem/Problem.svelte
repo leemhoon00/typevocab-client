@@ -160,6 +160,9 @@
 </div>
 
 <style>
+  .container {
+    height: 100%;
+  }
   .dropdown-toggle {
     border: none;
     width: 100%;

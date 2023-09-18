@@ -59,6 +59,7 @@
   aside {
     overflow-y: auto;
     border-right: 1px solid #dee2e6;
+    margin-bottom: 3rem;
   }
 
   .fw-semibold {

@@ -21,7 +21,10 @@
   <div class="offcanvas-body">
     <ul class="list-group list-group-flush">
       <a href="#/settings/profile">
-        <li class="list-group-item list-group-item-action">
+        <li
+          class="list-group-item list-group-item-action"
+          data-bs-dismiss="offcanvas"
+        >
           <span><img src="./images/setting.svg" width="20" alt="" /></span>
           <span>Settings</span>
         </li>

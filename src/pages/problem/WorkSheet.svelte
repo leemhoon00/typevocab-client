@@ -58,34 +58,42 @@
     </li>
   </ul>
 </div>
-<table id="problemTable" class="table table-bordered">
-  <thead class="text-center">
-    <tr>
-      <th class="narrow">No.</th>
-      <th class="wide">Word</th>
-      <th class="wide">Meaning</th>
-      <th class="wide hide answer">Answer</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each problem as word, index}
-      <Word {word} index={index + 1} />
-    {/each}
-  </tbody>
-  <tfoot>
-    <tr id="plusTr">
-      <td colspan="4" class="text-center align-middle"
-        ><button
-          type="button"
-          on:click={toggleAnswer}
-          class="btn plus hoverable">정답 보기</button
-        ></td
-      >
-    </tr>
-  </tfoot>
-</table>
+<div class="tableDiv">
+  <table id="problemTable" class="table table-bordered">
+    <thead class="text-center">
+      <tr>
+        <th class="narrow">No.</th>
+        <th class="wide">Word</th>
+        <th class="wide">Meaning</th>
+        <th class="wide hide answer">Answer</th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each problem as word, index}
+        <Word {word} index={index + 1} />
+      {/each}
+    </tbody>
+    <tfoot>
+      <tr id="plusTr">
+        <td colspan="4" class="text-center align-middle"
+          ><button
+            type="button"
+            on:click={toggleAnswer}
+            class="btn plus hoverable">정답 보기</button
+          ></td
+        >
+      </tr>
+    </tfoot>
+  </table>
+</div>
 
 <style>
+  .tableDiv {
+    padding-bottom: 4rem;
+  }
+  table {
+    height: 100%;
+  }
   #pdfToggleBtn {
     margin-top: 2rem;
     margin-bottom: 1rem;
