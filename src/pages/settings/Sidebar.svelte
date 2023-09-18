@@ -5,12 +5,6 @@
       <span>Profile</span>
     </li>
   </a>
-  <a href="#/settings/account">
-    <li class="list-group-item list-group-item-action">
-      <img src="./images/setting.svg" width="20" alt="" />
-      <span>Account</span>
-    </li>
-  </a>
 </ul>
 
 <style>

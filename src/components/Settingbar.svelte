@@ -9,7 +9,7 @@
   aria-labelledby="offcanvasRightLabel"
 >
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel">Profile Section</h5>
+    <h5 class="offcanvas-title" id="offcanvasRightLabel">Menus</h5>
     <button
       type="button"
       class="btn-close"
@@ -31,6 +31,7 @@
       </a>
       <a href="{BACKEND_URL}/auth/logout">
         <li class="list-group-item list-group-item-action">
+          <span><img src="./images/dash-circle.svg" width="20" alt="" /></span>
           <span>Logout</span>
         </li>
       </a>
@@ -56,5 +57,9 @@
 
   a {
     width: 100%;
+  }
+
+  h5 {
+    margin-left: 1rem;
   }
 </style>
