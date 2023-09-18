@@ -31,7 +31,12 @@
     if (result) {
       selectedVocab.update(async () => {
         const result = await getWords(sendedVocab._id);
-        return result;
+        const data = {
+          vocabularyName: sendedVocab.vocabularyName,
+          _id: sendedVocab._id,
+          words: result,
+        };
+        return data;
       });
     } else {
       console.log("단어 생성 실패");
@@ -92,7 +97,7 @@
 </script>
 
 <main>
-  <h1 class="text-center mb-4">{sendedVocab.title}</h1>
+  <h1 class="text-center mb-4">{sendedVocab.vocabularyName}</h1>
   <form
     on:submit|preventDefault={handlerSubmit}
     id="wordsForm"

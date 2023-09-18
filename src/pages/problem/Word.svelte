@@ -23,7 +23,7 @@
 
 <tr class="align-middle">
   <td class="text-center align-middle">{index}</td>
-  <td><span>{word.word}</span></td>
+  <td class="text-center"><span>{word.word}</span></td>
   <td
     ><input
       name="meaning"
