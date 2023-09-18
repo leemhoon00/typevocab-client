@@ -3,7 +3,7 @@ import { arrayToQueryString } from "@utils/vocabUtil.js";
 
 export const createFolder = async (folderName) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/vocab/folder`, {
+    const res = await fetch(`${BACKEND_URL}/folders`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -23,7 +23,7 @@ export const createFolder = async (folderName) => {
 
 export const getFolders = async () => {
   try {
-    const res = await fetch(`${BACKEND_URL}/vocab/folder`, {
+    const res = await fetch(`${BACKEND_URL}/folders`, {
       method: "GET",
       credentials: "include",
     });
@@ -40,7 +40,7 @@ export const getFolders = async () => {
 
 export const deleteFolder = async (folderId) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/vocab/folder/${folderId}`, {
+    const res = await fetch(`${BACKEND_URL}/folders/${folderId}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -56,7 +56,7 @@ export const deleteFolder = async (folderId) => {
 
 export const createVocabulary = async (folderId, vocabularyName) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/vocab/vocabulary`, {
+    const res = await fetch(`${BACKEND_URL}/vocabularies`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -67,7 +67,7 @@ export const createVocabulary = async (folderId, vocabularyName) => {
     if (!res.ok) {
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
-    return await res.json();
+    return true;
   } catch (err) {
     console.error(err);
     return null;
@@ -76,7 +76,7 @@ export const createVocabulary = async (folderId, vocabularyName) => {
 
 export const createWords = async (vocabularyId, words) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/vocab/words`, {
+    const res = await fetch(`${BACKEND_URL}/words`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -96,10 +96,13 @@ export const createWords = async (vocabularyId, words) => {
 
 export const getWords = async (vocabularyId) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/vocab/words/${vocabularyId}`, {
-      method: "GET",
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${BACKEND_URL}/words?vocabularyId=${vocabularyId}`,
+      {
+        method: "GET",
+        credentials: "include",
+      },
+    );
     if (!res.ok) {
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
@@ -112,7 +115,7 @@ export const getWords = async (vocabularyId) => {
 
 export const deleteVocabulary = async (vocabularyId) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/vocab/vocabulary/${vocabularyId}`, {
+    const res = await fetch(`${BACKEND_URL}/vocabularies/${vocabularyId}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -128,7 +131,7 @@ export const deleteVocabulary = async (vocabularyId) => {
 
 export const getSpeech = async (word) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/vocab/speech/${word}`, {
+    const res = await fetch(`${BACKEND_URL}/words/${word}`, {
       method: "GET",
       credentials: "include",
     });
@@ -142,14 +145,15 @@ export const getSpeech = async (word) => {
   }
 };
 
-export const createProblem = async (randomOption, vocabularies) => {
+export const createProblem = async (isRandom, vocabularyIds) => {
   try {
-    const queryString = arrayToQueryString("vocabularies", vocabularies);
-    const url = `${BACKEND_URL}/vocab/problem?randomOption=${randomOption}&${queryString}`;
-
-    const res = await fetch(url, {
-      method: "GET",
+    const res = await fetch(`${BACKEND_URL}/vocabularies/problems`, {
+      method: "POST",
       credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isRandom, vocabularyIds }),
     });
 
     if (!res.ok) {

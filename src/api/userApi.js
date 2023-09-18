@@ -2,7 +2,7 @@ import { BACKEND_URL } from "@src/config.js";
 
 export const getUser = async () => {
   try {
-    const res = await fetch(`${BACKEND_URL}/user`, {
+    const res = await fetch(`${BACKEND_URL}/users`, {
       credentials: "include",
     });
     if (!res.ok) {
@@ -17,7 +17,7 @@ export const getUser = async () => {
 
 export const updateUser = async (user) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/user`, {
+    const res = await fetch(`${BACKEND_URL}/users`, {
       method: "PUT",
       credentials: "include",
       headers: {
@@ -37,7 +37,7 @@ export const updateUser = async (user) => {
 
 export const deleteUser = async () => {
   try {
-    const res = await fetch(`${BACKEND_URL}/user`, {
+    const res = await fetch(`${BACKEND_URL}/users`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -70,7 +70,7 @@ export const uploadImage = async (file) => {
   try {
     const formData = new FormData();
     formData.append("file", file);
-    const res = await fetch(`${BACKEND_URL}/user/image`, {
+    const res = await fetch(`${BACKEND_URL}/users/image`, {
       method: "POST",
       credentials: "include",
       body: formData,
@@ -87,7 +87,7 @@ export const uploadImage = async (file) => {
 
 export const deleteImage = async () => {
   try {
-    const res = await fetch(`${BACKEND_URL}/user/image`, {
+    const res = await fetch(`${BACKEND_URL}/users/image`, {
       method: "DELETE",
       credentials: "include",
     });

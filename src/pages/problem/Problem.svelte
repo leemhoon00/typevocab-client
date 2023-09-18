@@ -69,7 +69,7 @@
         </button>
         <ul class="dropdown-menu" on:click={folderClickHandler}>
           {#each $folders as folder}
-            <li><button class="dropdown-item">{folder.title}</button></li>
+            <li><button class="dropdown-item">{folder.folderName}</button></li>
           {/each}
         </ul>
       </div>
@@ -86,8 +86,9 @@
         >
           {#key selectedFolder}
             {#if selectedFolder}
-              단어장({$folders.find((folder) => folder.title === selectedFolder)
-                .vocabularies.length})
+              단어장({$folders.find(
+                (folder) => folder.folderName === selectedFolder,
+              ).vocabularies.length})
             {:else}
               단어장
             {/if}
@@ -111,7 +112,7 @@
                     >
                   </div>
                 </li>
-                {#each $folders.find((folder) => folder.title === selectedFolder).vocabularies as voca}
+                {#each $folders.find((folder) => folder.folderName === selectedFolder).vocabularies as voca}
                   <li
                     class="list-group-item hoverable transparent-background"
                     on:click={vocaClickHandler}
@@ -123,7 +124,7 @@
                         class="form-check-input vocaCheckbox"
                         value={voca._id}
                       /><label for={voca._id} class="form-check-label hoverable"
-                        >{voca.title}</label
+                        >{voca.vocabularyName}</label
                       >
                     </div>
                   </li>

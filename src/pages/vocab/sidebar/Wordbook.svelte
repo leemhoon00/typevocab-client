@@ -1,6 +1,6 @@
 <script>
   export let folder;
-  import { deleteFolder, createVocabulary } from "@api/vocabApi";
+  import { deleteFolder, createVocabulary, getFolders } from "@api/vocabApi";
   import { folders } from "@stores/vocab";
 
   import VocabButton from "../components/VocabButton.svelte";
@@ -23,9 +23,12 @@
       isNewVocabButtonClicked = false;
       const result = await createVocabulary(folder._id, e.target.value);
       if (result) {
-        folders.update(() => {
-          return result;
-        });
+        const result = await getFolders();
+        if (result) {
+          folders.update(() => {
+            return result;
+          });
+        }
       } else {
         console.log("단어장 생성 실패");
       }
@@ -52,7 +55,7 @@
       data-bs-target="#{folder._id}-collapse"
       aria-expanded="true"
     >
-      {folder.title}
+      {folder.folderName}
     </button>
     <button class="btn deleteButton hoverable" on:click={deleteButton}
       ><img class="trashImg" src="./images/trash.svg" alt="" /></button

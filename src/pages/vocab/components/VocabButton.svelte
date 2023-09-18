@@ -7,14 +7,19 @@
   async function handlerClickButton() {
     selectedVocab.update(async () => {
       const result = await getWords(vocabulary._id);
-      return result;
+      const data = {
+        vocabularyName: vocabulary.vocabularyName,
+        _id: vocabulary._id,
+        words: result,
+      };
+      return data;
     });
   }
 </script>
 
 <li>
   <button on:click={handlerClickButton} class="rounded btn small hoverable"
-    >{vocabulary.title}</button
+    >{vocabulary.vocabularyName}</button
   >
 </li>
 
