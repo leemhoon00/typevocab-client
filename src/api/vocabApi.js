@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@src/config.js";
-import { arrayToQueryString } from "@utils/vocabUtil.js";
+import { refreshAccessToken } from "./authApi";
 
 export const createFolder = async (folderName) => {
   try {
@@ -12,6 +12,11 @@ export const createFolder = async (folderName) => {
       body: JSON.stringify({ folderName }),
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await createFolder(folderName);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return await res.json();
@@ -28,6 +33,11 @@ export const getFolders = async () => {
       credentials: "include",
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await getFolders();
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     const folders = await res.json();
@@ -45,6 +55,11 @@ export const deleteFolder = async (folderId) => {
       credentials: "include",
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await deleteFolder(folderId);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return true;
@@ -65,6 +80,11 @@ export const createVocabulary = async (folderId, vocabularyName) => {
       body: JSON.stringify({ folderId, vocabularyName }),
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await createVocabulary(folderId, vocabularyName);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return true;
@@ -85,6 +105,11 @@ export const createWords = async (vocabularyId, words) => {
       body: JSON.stringify({ vocabularyId, words }),
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await createWords(vocabularyId, words);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return true;
@@ -104,6 +129,11 @@ export const getWords = async (vocabularyId) => {
       },
     );
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await getWords(vocabularyId);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return await res.json();
@@ -120,6 +150,11 @@ export const deleteVocabulary = async (vocabularyId) => {
       credentials: "include",
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await deleteVocabulary(vocabularyId);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return true;
@@ -136,6 +171,11 @@ export const getSpeech = async (word) => {
       credentials: "include",
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await getSpeech(word);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return res.body;
@@ -157,6 +197,11 @@ export const createProblem = async (isRandom, vocabularyIds) => {
     });
 
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await createProblem(isRandom, vocabularyIds);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
 

@@ -111,7 +111,6 @@
   <td class="wordTd"
     ><input
       name="word"
-      id="wordInput"
       type="text"
       class="form-control form-control-sm rounded"
       value={word.word}

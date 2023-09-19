@@ -1,4 +1,5 @@
 import { BACKEND_URL } from "@src/config.js";
+import { refreshAccessToken } from "./authApi";
 
 export const getUser = async () => {
   try {
@@ -6,6 +7,11 @@ export const getUser = async () => {
       credentials: "include",
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await getUser();
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return await res.json();
@@ -14,7 +20,6 @@ export const getUser = async () => {
     return null;
   }
 };
-
 export const updateUser = async (user) => {
   try {
     const res = await fetch(`${BACKEND_URL}/users`, {
@@ -26,6 +31,11 @@ export const updateUser = async (user) => {
       body: JSON.stringify(user),
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await updateUser(user);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return true;
@@ -42,6 +52,11 @@ export const deleteUser = async () => {
       credentials: "include",
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await deleteUser();
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return true;
@@ -76,6 +91,11 @@ export const uploadImage = async (file) => {
       body: formData,
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await uploadImage(file);
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return true;
@@ -92,6 +112,11 @@ export const deleteImage = async () => {
       credentials: "include",
     });
     if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await deleteImage();
+        throw new Error("refresh토큰 만료");
+      }
       throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
     }
     return true;

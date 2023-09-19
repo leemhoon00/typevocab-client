@@ -1,4 +1,4 @@
-<h1>Welcome to Vocab</h1>
+<h1>Welcome to TypeVocab</h1>
 
 <style>
   h1 {

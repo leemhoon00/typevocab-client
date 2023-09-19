@@ -69,9 +69,11 @@
       </tr>
     </thead>
     <tbody>
-      {#each problem as word, index}
-        <Word {word} index={index + 1} />
-      {/each}
+      {#key problem}
+        {#each problem as word, index}
+          <Word {word} index={index + 1} />
+        {/each}
+      {/key}
     </tbody>
     <tfoot>
       <tr id="plusTr">
