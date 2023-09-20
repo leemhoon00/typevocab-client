@@ -125,3 +125,68 @@ export const deleteImage = async () => {
     return null;
   }
 };
+
+export const getLikes = async () => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/users/likes`, {
+      credentials: "include",
+    });
+    if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await getLikes();
+        throw new Error("refresh토큰 만료");
+      }
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+
+    return await res.json();
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+export const addLike = async () => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/users/likes`, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await addLike();
+        throw new Error("refresh토큰 만료");
+      }
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+
+    return true;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
+
+export const deleteLike = async () => {
+  try {
+    const res = await fetch(`${BACKEND_URL}/users/likes`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if (!res.ok) {
+      if (res.status === 401) {
+        const result = await refreshAccessToken();
+        if (result) return await deleteLike();
+        throw new Error("refresh토큰 만료");
+      }
+      throw new Error(`HTTP Error: ${res.status} ${res.statusText}`);
+    }
+
+    return true;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+};
