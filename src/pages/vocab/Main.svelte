@@ -170,6 +170,8 @@
       >
     </div>
   </form>
+  <h3 class="text-center discription">Tab : 오른쪽 이동</h3>
+  <h3 class="text-center discription">Shift + Tab : 왼쪽 이동</h3>
 </main>
 
 <style>
@@ -216,5 +218,9 @@
     top: 0;
     right: 0;
     width: 2rem;
+  }
+
+  .discription {
+    color: #d4d6d7;
   }
 </style>

@@ -23,11 +23,6 @@ a {
   cursor: auto;
 }
 
-h3 {
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 1rem;
-}
-
 .hoverable:hover {
   color: rgba(0, 0, 0, 0.85);
   background-color: #d2f4ea;
