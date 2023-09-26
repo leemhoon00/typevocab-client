@@ -6,10 +6,10 @@
 
   async function handlerClickButton() {
     selectedVocab.update(async () => {
-      const result = await getWords(vocabulary._id);
+      const result = await getWords(vocabulary.vocabularyId);
       const data = {
         vocabularyName: vocabulary.vocabularyName,
-        _id: vocabulary._id,
+        vocabularyId: vocabulary.vocabularyId,
         words: result,
       };
       return data;

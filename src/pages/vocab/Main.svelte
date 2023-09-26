@@ -26,14 +26,14 @@
       }
     }
 
-    const result = await createWords(sendedVocab._id, words);
+    const result = await createWords(sendedVocab.vocabularyId, words);
 
     if (result) {
       selectedVocab.update(async () => {
-        const result = await getWords(sendedVocab._id);
+        const result = await getWords(sendedVocab.vocabularyId);
         const data = {
           vocabularyName: sendedVocab.vocabularyName,
-          _id: sendedVocab._id,
+          vocabularyId: sendedVocab.vocabularyId,
           words: result,
         };
         return data;
@@ -57,7 +57,7 @@
   }
 
   async function handlerDeleteButton() {
-    const result = await deleteVocabulary(sendedVocab._id);
+    const result = await deleteVocabulary(sendedVocab.vocabularyId);
     if (result) {
       selectedVocab.update((currentValue) => {
         return null;

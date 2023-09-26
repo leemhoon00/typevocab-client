@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { createFolder, getFolders } from "@api/vocabApi";
+  import { createFolder } from "@api/vocabApi";
   import { folders } from "@stores/vocab.js";
 
   onMount(() => {
