@@ -21,7 +21,7 @@
       isNewVocabButtonClicked = false;
     } else if (e.keyCode === 13) {
       isNewVocabButtonClicked = false;
-      const result = await createVocabulary(folder._id, e.target.value);
+      const result = await createVocabulary(folder.folderId, e.target.value);
       if (result) {
         const result = await getFolders();
         if (result) {
@@ -36,10 +36,10 @@
   }
 
   async function deleteButton() {
-    const result = await deleteFolder(folder._id);
+    const result = await deleteFolder(folder.folderId);
     if (result) {
       folders.update((currentValue) => {
-        return currentValue.filter((f) => f._id !== folder._id);
+        return currentValue.filter((f) => f.folderId !== folder.folderId);
       });
     } else {
       alert("폴더 삭제에 실패했습니다.");
@@ -52,7 +52,7 @@
     <button
       class="btn btn-toggle hoverable align-items-center rounded collapsed"
       data-bs-toggle="collapse"
-      data-bs-target="#{folder._id}-collapse"
+      data-bs-target="#{folder.folderId}-collapse"
       aria-expanded="true"
     >
       {folder.folderName}
@@ -61,7 +61,7 @@
       ><img class="trashImg" src="./images/trash.svg" alt="" /></button
     >
   </div>
-  <div class="collapse show" id="{folder._id}-collapse">
+  <div class="collapse show" id="{folder.folderId}-collapse">
     <div class="listDiv">
       <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
         {#each folder.vocabularies as vocabulary}

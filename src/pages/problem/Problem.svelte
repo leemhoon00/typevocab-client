@@ -120,10 +120,12 @@
                     <div class="form-check">
                       <input
                         type="checkbox"
-                        id={voca._id}
+                        id={voca.vocabularyId}
                         class="form-check-input vocaCheckbox"
-                        value={voca._id}
-                      /><label for={voca._id} class="form-check-label hoverable"
+                        value={voca.vocabularyId}
+                      /><label
+                        for={voca.vocabularyId}
+                        class="form-check-label hoverable"
                         >{voca.vocabularyName}</label
                       >
                     </div>
