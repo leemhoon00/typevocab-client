@@ -8,8 +8,10 @@
 
   isLoggedIn.update((value) => {
     if (getCookie("isLoggedIn") === "true") {
+      console.log("true", getCookie("isLoggedIn"));
       return true;
     } else {
+      console.log("false", getCookie("isLoggedIn"));
       return false;
     }
   });

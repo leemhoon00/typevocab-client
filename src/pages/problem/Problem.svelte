@@ -37,7 +37,7 @@
     const selectedVocas = [];
     document.querySelectorAll(".vocaCheckbox").forEach((checkbox) => {
       if (checkbox.checked) {
-        selectedVocas.push(checkbox.value);
+        selectedVocas.push(Number(checkbox.value));
       }
     });
 
